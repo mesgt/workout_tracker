@@ -2,17 +2,17 @@
 
 ## User Story
 
-view 
-create and 
+view (GET:id)
+create and (POST)
 track daily workouts. 
 log multiple exercises in a workout on a given day. 
-track the name, type, weight, sets, reps, and duration of exercise. 
-cardio exercise- track distance traveled.
+<!-- track the name, type, weight, sets, reps, and duration of exercise.  -->
+<!-- cardio exercise- track distance traveled. -->
 
 
 ## Acceptance Criteria
 
-When the user loads the page, they should be given the option to create a **new workout or continue** with their last workout.
+When the user loads the page, they should be given the option to create a **new workout (POST) or continue (PUT)** with their last workout.
 
 The user should be able to:
 

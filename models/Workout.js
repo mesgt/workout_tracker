@@ -16,8 +16,8 @@ const WorkoutSchema = new Schema({
         sets: Number,
         distance: Number,
         trim: true,
-        required: "Exercise is required!"
-    },
+        // required: "Exercise is required!"
+    }
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
