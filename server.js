@@ -19,23 +19,13 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
 
 db.Workout.create({ name: "Cool Workout!" })
-    .then(userWorkout => {
-        console.log(userWorkout);
+    .then(dbWorkout => {
+        console.log(dbWorkout);
     })
     .catch(({ message }) => {
         console.log(message);
     });
 
-// db.Workout.post("/api/workouts", ({body}, res) => {
-//     const userWorkout = new Workout(body);
-//     Workout.create(body)
-//     .then(newWorkout => {
-//         res.json(newWorkout);
-//     })
-//     .catch(err => {
-//         res.json(err);
-//     });
-// });
 
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes.js")(app);
