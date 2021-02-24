@@ -1,18 +1,18 @@
-const db = require("../models")
+const db = require("../models");
+const path = require("path");
 
 module.exports = function (app) {
 
     app.get("/", (req, res) => {
-        db.Workout.find({})
-            .then(newWorkout => {
-                console.log(newWorkout)
-                // res.json(newWorkout);
-            })
-            .catch(({ message }) => {
-                console.log(message);
-            });
+        res.sendFile(path.join(__dirname, "../public/html/index.html"))
     });
 
+    app.get("/stats", (req, res) => {
+        res.sendFile(path.join(__dirname, "../public/html/stats.html"))
+    });
 
+    app.get("/exercise", (req, res) => {
+        res.sendFile(path.join(__dirname, "../public/html/exercise.html"))
+    });
 
 }
