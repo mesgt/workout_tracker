@@ -1,1 +1,1 @@
-module.exports = { model: require('./path/to/model') };
+module.exports = {Workout:require("./Workout.js")}
