@@ -23,7 +23,8 @@ const mongoDB_URI = "mongodb+srv://catninja:password1234@cluster0.sbxwt.mongodb.
 mongoose.connect(process.env.mongoDB_URI || "mongodb://localhost/workout", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
 })
     .then(result =>
         app.listen(PORT))
