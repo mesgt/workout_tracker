@@ -3,60 +3,49 @@ const db = require("../models");
 
 module.exports = function (app) {
 
-    //Create a workout
-    db.Workout.create({ name: "Cool Workout!" })
-        .then(dbWorkout => {
-            console.log(dbWorkout);
-        })
-        .catch(({ message }) => {
-            console.log(message);
-        });
-
-    //Displaying all workouts from db
+    //Display all workouts on workout page
     app.get("/api/workouts", (req, res) => {
         db.Workout.find({})
-            .then(dbExercise => {
-                res.json(dbExercise);
-            })
-            .catch(err => {
-                res.json(err);
-            });
-    });
-
-    //Add exercise to Workout db
-    app.post("api/workouts", ({ data }, res) => {
-        db.Workout.create(data)
-            .then(({ _id }) => db.Workout.findOneAndUpdate({}, { $push: { exercise: _id } }, { new: true }))
             .then(dbWorkout => {
                 res.json(dbWorkout);
             })
             .catch(err => {
-                res.json(err);
+                res.status(400).json(err);
+            });
+    });
+
+    //Display all workouts on range page
+    app.get("/api/workouts/range", ({ }, res) => {
+        db.Workout.find({})
+            .then(dbWorkout => {
+                res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.status(400).json(err);
+            });
+    });
+
+    //Add completed workout to Workout db
+    app.post("api/workouts", (req, res) => {
+        db.Workout.create(req.body)
+            .then(dbWorkout => {
+                res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.status(400).json(err);
             });
     });
 
     //Edit workout by id (adding more exercise to workout)
-    app.post("api/workouts/:id", (req, res) => {
-        console.log(req.params)
-        db.Workout.find({ "_id": mongojs.ObjectId(req.params.id) }, (err, data) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(data);
-            }
-        });
+    app.put("api/workouts/:id", (req, res) => {
+        // console.log(req.params)
+        db.Workout.findByIdAndUpdate({ _id: req.params.id }, { exercises: req.body })
+            .then(dbWorkout => {
+                res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.status(400).json(err);
+            })
     });
 
-
-    // query to grab the documents from the Workout collection:
-
-    // app.get("/populateduser", (req, res) => {
-    //     db.Workout.find({})
-    //         .populate("exercise")
-    //         .then(dbWorkout => {
-    //             res.json(dbWorkout);
-    //         }).catch(err => {
-    //             res.json(err);
-    //         });
-    //     })
-    }
+}
