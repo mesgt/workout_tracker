@@ -14,7 +14,7 @@ module.exports = function (app) {
 
     //Displaying all workouts from db
     app.get("/api/workouts", (req, res) => {
-        db.Exercise.find({})
+        db.Workout.find({})
             .then(dbExercise => {
                 res.json(dbExercise);
             })
@@ -25,7 +25,7 @@ module.exports = function (app) {
 
     //Add exercise to Workout db
     app.post("api/workouts", ({ data }, res) => {
-        db.Exercise.create(data)
+        db.Workout.create(data)
             .then(({ _id }) => db.Workout.findOneAndUpdate({}, { $push: { exercise: _id } }, { new: true }))
             .then(dbWorkout => {
                 res.json(dbWorkout);
@@ -38,7 +38,7 @@ module.exports = function (app) {
     //Edit workout by id (adding more exercise to workout)
     app.post("api/workouts/:id", (req, res) => {
         console.log(req.params)
-        db.Exercise.find({ "_id": mongojs.ObjectId(req.params.id) }, (err, data) => {
+        db.Workout.find({ "_id": mongojs.ObjectId(req.params.id) }, (err, data) => {
             if (err) {
                 console.log(err);
             } else {

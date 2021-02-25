@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3002;
 
-const db = require("./models");
-// const { Workout } = require("./models");
-
 const app = express();
+
+const db = require("./models");
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes.js")(app);
 
 app.use(logger("dev"));
 
@@ -16,20 +17,16 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
+//Connect to MongoDB
+const mongoDB_URI = "mongodb+srv://catninja:password1234@cluster0.sbxwt.mongodb.net/workout_tracker?retryWrites=true&w=majority"
 
-db.Workout.create({ name: "Cool Workout!" })
-    .then(dbWorkout => {
-        console.log(dbWorkout);
-    })
-    .catch(({ message }) => {
-        console.log(message);
-    });
+mongoose.connect(process.env.mongoDB_URI || "mongodb://localhost/workout", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
+    .then(result =>
+        app.listen(PORT))
+    .catch(err =>
+        console.log(err));
 
-
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes.js")(app);
-
-app.listen(PORT, () => {
-    console.log(`App running on http://localhost:${PORT}`);
-});
