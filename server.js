@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3002;
 const app = express();
 
 const db = require("./models");
+const apiRoutes = require("./routes/apiRoutes");
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes.js")(app);
 
@@ -14,6 +15,7 @@ app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(apiRoutes)
 
 app.use(express.static("public"));
 
