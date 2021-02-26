@@ -13,8 +13,6 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes.js")(app);
 //Connect to MongoDB
 
 mongoose.connect(process.env.mongoDB_URI || "mongodb://localhost/workout", {
@@ -23,8 +21,10 @@ mongoose.connect(process.env.mongoDB_URI || "mongodb://localhost/workout", {
     useFindAndModify: false,
     useCreateIndex: true
 })
-    .then(result =>
-        app.listen(PORT))
+    .then(result => {
+        require("./routes/apiRoutes")(app);
+        require("./routes/htmlRoutes.js")(app)
+        app.listen(PORT)})
     .catch(err =>
         console.log(err));
 
