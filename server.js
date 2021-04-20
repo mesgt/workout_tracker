@@ -18,7 +18,6 @@ mongoose.connect(process.env.mongoDB_URI || "mongodb://localhost/workout", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-    // useCreateIndex: true
 });
 
 app.use(require("./routes/apiRoutes.js"));
