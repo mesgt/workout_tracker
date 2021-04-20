@@ -18,7 +18,7 @@ This app was created to promote exercise by helping the user keep track of their
 
 This fitness workout logger uses MVC parameters, MongoDB and Mongoose to log workout data to Mongo Atlas database. The logged data is then analyzed and presented to the user in a graph for easier view. User has the option of adding  more exercise sessions to a day's work out by clicking on 'Continue Workout' or starting a new workout for the day by clicking on 'New Workout'. The user also has the option of choosing the type of exercise- resistance or cardio- for more accurate tracking. A modal informs the user when an exercise has been successfully added to the day's workout.   
 
-![Demo](public\images\Workout_Tracker.gif)
+![Demo](./public/images/Workout_Tracker.gif)
 
 
 ## Technologies
